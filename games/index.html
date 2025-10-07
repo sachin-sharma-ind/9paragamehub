@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9PARA GameHub - CSS Games Collection</title>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: inherit;
+        }
+
+        :root {
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #00d4ff;
+            --accent-hover: #00b8e6;
+            --border: #2a2a3e;
+            --shadow: rgba(0, 212, 255, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --accent: #3182ce;
+            --accent-hover: #2c5aa0;
+            --border: #e2e8f0;
+            --shadow: rgba(49, 130, 206, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: var(--gradient);
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--shadow);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .game-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .game-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+        }
+
+        .game-info {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .game-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .game-category {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .game-card:hover .play-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .play-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">🎮 9PARA GameHub</div>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-icon">🌙</span> Toggle Theme
+            </button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>CSS Games Collection</h1>
+            <p>Discover amazing games built with pure CSS and JavaScript. Play, explore, and have fun!</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="controls">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Search games..." id="searchInput">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">All Games</button>
+                <button class="filter-btn" data-category="puzzle">Puzzle</button>
+                <button class="filter-btn" data-category="arcade">Arcade</button>
+                <button class="filter-btn" data-category="strategy">Strategy</button>
+                <button class="filter-btn" data-category="action">Action</button>
+            </div>
+        </div>
+
+        <div class="games-grid" id="gamesGrid">
+            <!-- Games will be populated by JavaScript -->
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <h3>No games found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 GameHub. Built with ❤️ and CSS</p>
+        </div>
+    </footer>
+
+    <script>
+        // Game data - Add your games here
+        const games = [
+            {
+                id: 'game1',
+                title: 'rock paper scissor ',
+                description: 'single player-Challenge your mind with this engaging puzzle game with brain-teasing mechanics.',
+                category: 'arcade',
+                emoji: ' ✊ ✋ ✌️',
+                folder: 'game1'
+            },
+            {
+                id: 'game2',
+                title: 'connect four',
+                description: 'multiplayer-Who makes  same color first four coins in a line will win ...',
+                category: 'strategy',
+                emoji: '🔴 🟡 ⚪',
+                folder: 'game2'
+            },
+            {
+                id: 'game3',
+                title: 'simon',
+                description: 'single player-Simon is a classic game in which a board displays a sequence of colors in order and the player needs to repeat after it. .',
+                category: 'strategy',
+                emoji: 'Colors: 🔴 🟡 🟢 🔵',
+                folder: 'game3'
+            },
+            {
+                id: 'game4',
+                title: 'snake and ladders ',
+                description: 'multi player-Snakes and Ladders is an ancient Indian board game regarded today as a worldwide classic. ',
+                category: 'action',
+                emoji: '🐍 🐲 🟢',
+                folder: 'game4'
+            },
+            {
+                id: 'game5',
+                title: 'single player-tic tac toe v/s ai',
+                description: 'Test your skills in tic tac toe by playing v/s ai.',
+                category: 'arcade',
+                emoji: '❌ ⭕ ⬜',
+                folder: 'game5'
+            },
+            {
+                id: 'game6',
+                title: 'tic tac toe v/s player',
+                description: 'multiplayer-have fun with your friend by playing tic tac toe v/s friend.',
+                category: 'arcade',
+                emoji: '❌ ⭕ ⬜',
+                folder: 'game6'
+            },
+            {
+                id: 'game7',
+                title: 'trivia',
+                description: 'have fun with trivia the a game of questions and answers. ',
+                category: 'puzzle',
+                emoji: '❓ ❔ 🤔',
+                folder: 'game7'
+            },
+            {
+                id: 'game8',
+                title: 'whack a mole',
+                description: 'you have only 20 sec to whack the 20 moles whack as muck you can.',
+                category: 'puzzle',
+                emoji: '🐹🔨 ',
+                folder: 'game8'
+            },
+            {
+                id: 'game9',
+                title: 'Candy Crush',
+                description: 'the classy candy crush with timed and unlimited timed modes.',
+                category: 'puzzle',
+                emoji: '🍭 🍬 ',
+                folder: 'game9'
+            },
+            {
+                id: 'game10',
+                title: 'breakout',
+                description: 'can you hit all the bricks to break out through them ... ',
+                category: 'action',
+                emoji: ' _. ----',
+                folder: 'game10'
+            },
+            {
+                id: 'game11',
+                title: 'Minesweeper',
+                description: 'there are 10 mines test your luck  ... ',
+                category: 'action',
+                emoji: ' 💣',
+                folder: 'game11'
+            },
+            {
+                id: 'game12',
+                title: 'tower blocks',
+                description: 'build as high you can but be precise... ',
+                category: 'strategy',
+                emoji: ' 🏰',
+                folder: 'game12'
+            },
+            {
+                id: 'game13',
+                title: 'ping pong',
+                description: 'multiplayer pingpong - symmetrical blocks moving up and down can you balance ',
+                category: 'action',
+                emoji: ' 🏓 - 🏓',
+                folder: 'game13'
+            },
+            {
+                id: 'game14',
+                title: 'tetris',
+                description: 'move the shapes for scoring more and more... ',
+                category: 'action',
+                emoji: '◼️🔴♦️ ',
+                folder: 'game14'
+            },
+            {
+                id: 'game15',
+                title: 'fruit slicer',
+                description: 'cut the fruits into slices for scoring more n more in 3 lifes... ',
+                category: 'arcade',
+                emoji: '🔪🍎',
+                folder: 'game15'
+            }
+        ];
+
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Theme management
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'light') {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+            }
+        }
+
+        // Render games
+        function renderGames() {
+            const gamesGrid = document.getElementById('gamesGrid');
+            const noResults = document.getElementById('noResults');
+            
+            let filteredGames = games.filter(game => {
+                const matchesCategory = currentFilter === 'all' || game.category === currentFilter;
+                const matchesSearch = game.title.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                                    game.description.toLowerCase().includes(currentSearch.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filteredGames.length === 0) {
+                gamesGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            gamesGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            gamesGrid.innerHTML = filteredGames.map(game => `
+                <div class="game-card" onclick="playGame('${game.folder}')">
+                    <div class="game-thumbnail">
+                        ${game.emoji}
+                        <button class="play-btn">▶️</button>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">${game.title}</h3>
+                        <p class="game-description">${game.description}</p>
+                        <span class="game-category">${game.category}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Play game function
+        function playGame(folder) {
+            // Open game in new tab - you can modify this to use iframes or other methods
+            window.open(`games/${folder}/index.html`, '_blank', 'noopener,noreferrer');
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-category');
+                renderGames();
+            });
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            renderGames();
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            renderGames();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9871f035e11f91ec',t:'MTc1OTIxNjYyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
